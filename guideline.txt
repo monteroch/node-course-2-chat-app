@@ -189,7 +189,38 @@
 
 [17] Emiting 2 events when a user connects
 
-    
+    let's emit 2 events when a new user connects to the chat liek this:
+
+        socket.emit('connection', {
+            from: 'Admin',
+            text: 'Welcome to the chat app',
+            createdAt: new Date().getTime()
+        });
+        socket.broadcast.emit('connection', {
+            from: 'Admin',
+            text: 'New user joined',
+            createdAt: new Date().getTime()
+        });
+
+--- CHAPTER 6 ---
+
+[18] Generating newMessage and newLocationMessage
+
+    First we are going to work on the server.js file and take some code to a separate file, we will try to separate all the messaging functions together, so let's create a new folder inside server, and call it utils, then inside let's creta a message.js file and set the structure of the message, so we can export it later (see, message.js file).
+
+    Then lets create some test cases, for doing that lets install mocha an expect with the following commmand:
+
+        npm install expect@1.20.2 mocha@5.0.5 --save-dev
+
+    after this, lets create our test-watch script in the package.json file:
+
+        "test-watch": "nodemon --exec 'npm test'"
+
+    Also lets add the test script:
+
+        "test": "mocha server/**/*.test.js",
+
+            
 
 
 
