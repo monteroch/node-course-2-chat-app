@@ -51,7 +51,16 @@
         "node": "9.3.0"
     }
 
-[8] Lets make our first commit
+[8] Lets make our first commit, also create the Heroku app and uplaod the code, for achieve this, we need to run the following commands:
+
+    heroku create
+    heroku push origin master
+
+    the output: https://agile-springs-52465.herokuapp.com
+
+    And there we can see our application tunning on Heroku
+
+
 
 
 
