@@ -160,6 +160,14 @@
 
         Then on the client side, the data that we passed it will be stored in the first parameter of our callback function, so, we can manipulate the data.
 
+        After this we are going to create the newMessage event from the server to the client, so we need to implement the event listener on the client, and the event emitter on the backend.
+
+[15] Broadcasting events
+
+    Now that we have our custom event listeners and emitter in place, its time to actually wire up the message system, so when on user sends a message to the server, it actually gets sent to evert connected user. If I have two tabs open and I emit a createMessage event from one tab, I should see the message arrive in the second one.
+
+    
+    
 
 
 
