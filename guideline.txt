@@ -60,6 +60,79 @@
 
     And there we can see our application tunning on Heroku
 
+[9] Adding Socket.io to an app
+
+    Now that we have a basic express app up and running we are going to configure it to allow incoming websockets connections. This means the server will be able toa ccept connections and well be setting up the client to make the connections. Then, well have a persistent connection ans we can send data back and forth, whether its data from the server tyo the client, r data from the client to the server. In order to ser up th WebSockets, we'll be using a library called Socket.io.
+
+[10] Setting up socket.io:
+
+    npm i socket.io@2.0.4 --save
+
+    Once the installation is completed, we will require the socketio in the server file:
+
+        const socketIO = require('socket.io');1
+
+    Now, lets integrate the library
+
+[11] Creating a server using the http library:
+
+    - First will need to load the http module:
+
+        const http = require('http');
+
+    Then lets create the server using the http library:
+
+        var server = http.createServer(app);
+
+    The next thing we'll do is configure the server to use Socket.io
+
+        var io = socketIO(server);
+
+    This returns our WebSockets server, on here, we can do anything we want in terms of emitting or listenning to events.
+    What we'll do now in order to make a connection is to add a script tag in our client HTML file called index.html
+
+        <script src="/socket.io/socket.io.js"></script>
+
+    this path is relative to our server, by adding this, we are laoding the socket.io library into the client. Then we will need another script tag, but instead of loading an external file, we'll be writing our code:
+
+        <script>
+            var socket = io();
+        </script>
+
+    This creates our connection and stores the socket in a variable. We can go to Chrome/developer tools/ netwrok and inspect a little bit. The network panel keeps track of all of the requests made by our webpage. We can refresh the page in order to see the list of resources requested.
+
+[12] Communication between the client and the server:
+
+    Now, communication can be anything, in this case it comes in a form of an event. Events can be emmited from both the server and the client. and also both of them can be listening for events.
+    So lets take a look into the built on methods/events, so lets add the following code in the server.js file:
+
+        io.on()
+
+    This emthod lets us register an event listener, so we can listen for an specific event and do something when that event happens. On built-in event that we are going to use is the connection, this lets us to listen for a new connection and lets us do something when the connection comes in via a callback function:
+
+        io.on('connection', (socket) => {
+            console.log('New user  connected');
+        });
+
+    **We need to understand something about sockets, WebSockets as we already mentioned, are a persisten technology, meaning that the client and server both keep the communication channel open for as long as either of them want to. If the server shuts down, the client doesnt really have a choice, and vice versa. If I close a browser tab, the server cannot force me to keep the connection open.
+
+[13] Adding a connection event in the client
+
+    In the index.html file we can add an event:
+
+        socket.on('connect', () => {
+            console.log('Connected to server');
+        });
+
+[13] The disconnect event:
+
+    The disconnect event lets us do something in both, client and server when the connection drops. We'll add and event lister in the client and we'll do the same thing into the server:
+
+        socket.on('disconnect', () => {
+            console.log('Disconnected from the server');
+        });
+
+
 
 
 
