@@ -15,6 +15,17 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
     console.log('New user  connected');
 
+    socket.emit('connection', {
+        from: 'Admin',
+        text: 'Welcome to the chat app',
+        createdAt: new Date().getTime()
+    });
+    socket.broadcast.emit('connection', {
+        from: 'Admin',
+        text: 'New user joined',
+        createdAt: new Date().getTime()
+    });
+
     socket.on('disconnect', () => {
         console.log('User was disconnected');
     });
@@ -25,26 +36,13 @@ io.on('connection', (socket) => {
         createdAt: 123
     });
 
-    //this was a test
-    // socket.on('createEmail', (newEmail) => {
-    //     console.log('createEmail: ', newEmail);
-    // });
-
     socket.on('createMessage', (message) => {
-        console.log('Create message: ', message);
-        io.emit('newMessage', {
+        socket.broadcast.emit('newMessage', {
             from: message.from,
             text: message.text,
             createdAt: new Date().getTime()
         });
-    })
-
-    // socket.emit('newMessage', {
-    //     from: 'John',
-    //     text: 'See you then',
-    //     createdAt: 123
-    // });
-
+    });
 });
 
 const port = process.env.PORT || 3000;

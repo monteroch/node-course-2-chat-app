@@ -167,6 +167,28 @@
     Now that we have our custom event listeners and emitter in place, its time to actually wire up the message system, so when on user sends a message to the server, it actually gets sent to evert connected user. If I have two tabs open and I emit a createMessage event from one tab, I should see the message arrive in the second one.
 
     
+[16] Broadcasting event to the users
+
+    Sometimes we need some specific events to be emitted for everyone and some of them just for a single user, i.e. when Mike joins the chat, we should send a message to all the other users that Mike just joined the chat, and a message like: 'Welcome Mike' only to Mike.
+
+    We will change the socket.io for socket.broadcast, with the same params, the difference is that it emmits the event to all of users but the itself.
+
+        socket.on('createMessage', (message) => {
+            console.log('Create message: ', message);
+            // io.emit('newMessage', {
+            //     from: message.from,
+            //     text: message.text,
+            //     createdAt: new Date().getTime()
+            // });
+            socket.broadcast.emit('newMessage', {
+                from: message.from,
+                text: message.text,
+                createdAt: new Date().getTime()
+            })
+        })
+
+[17] Emiting 2 events when a user connects
+
     
 
 

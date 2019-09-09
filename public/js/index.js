@@ -13,16 +13,10 @@ socket.on('disconnect', function(){
     console.log('Disconnected from the server');
 });
 
-//Test
-// socket.on('newEmail', function(email){
-//     console.log('New Email: ', email);
-// });
-
-// socket.emit('createMessage',{
-//     from: 'Amdrew',
-//     text: 'Yup, that works for me'
-// });
-
 socket.on('newMessage', function(message){
-    console.log('new Message: ', message)
+    console.log('new Message: ', message.text)
+})
+
+socket.on('connection', function(message){
+    console.log('new Message: ', message.text)
 })
