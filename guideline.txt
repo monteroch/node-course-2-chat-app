@@ -132,6 +132,36 @@
             console.log('Disconnected from the server');
         });
 
+        also we can try the 
+
+        socket.on('disconnect', () => {
+            console.log("Disconnected from the server");
+        });
+
+        and this 2 events are both in the Server and in the client, it's important to mention that in the Server side, the disconnect method it's applied to the sockets inside the io.on(connect) method callback.
+
+[14] Emitting and listening to custom events:
+
+    First lets move the javascript code of the client side to a separate file, and in order to make this to work on any platform we'll need to remove the arrow functions and use regular functions instead.
+
+    there are 2 custom events that we want to create:
+    1.- newEmail (Server ->  Client)
+    2.- createNewEmail(client -> Browser)
+
+    As we  have been doing we, will be using the socket.on('newEmail') to specify what do we want to do, when we recieve that event, for now let's create the first one, and type into the index.js file the docket.on method and in the callback function let's just log "New email recieved".
+
+    Then we will need to use the emit method on the server, applied to the socket variable, the first parameter is the name of the event, which in this case will be the same name that we specified in the index.js file fot the client: "newEmail", we can also pass as the second argument the data that we are interested on passed on:
+
+        socket.emit('newEmail', {
+            from: 'mike@example.com',
+            text: 'Whats app man',
+            createdAt: 123
+        });
+
+        Then on the client side, the data that we passed it will be stored in the first parameter of our callback function, so, we can manipulate the data.
+
+
+
 
 
 
