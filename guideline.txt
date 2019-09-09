@@ -1,0 +1,58 @@
+[1] Create Server an Public Folder, under the Server folder we are going to save the Frontend files like index.html and under the Server folder we are going to save the backend code.
+
+[2] We will need to use the path libary because since the server.js is not in the root folder, it gets a little bit tricky to specify the routes, so we will use the path library, and being specific the join method.
+
+    without path library: /home/christian/Projects/node-advanced/node-chat-app/server/../public
+    with path library: /home/christian/Projects/node-advanced/node-chat-app/public
+
+[3] Then lets install express:
+    npm i express@4.16.3 --save
+
+[4] Configuring basic Setup
+    First step: load express in a constant called express:  
+        
+        const express = require('express');
+
+    Second step: Make a variable called app and set it equal to a call to express: 
+        
+        var app = express();
+
+    Tercer step: To configure Express, we call methods on app to create routes, add middleware or start up the server.
+                 So we'll first call app.use to configure our Express static middleware. This will serve up that public folder,
+                 So we need to call express static and pass in the public Path variable which stores the path we need:
+
+                    app.use(express.static(publicPath));
+
+                Then we need to call app.listen to start up the server in the port 3000:
+                
+                    app.listen(3000, () => {
+                        console.log('Server is up on port 3000');
+                    });
+
+[5] Setup a gitignore file
+
+    So lets create a file called .gitignore and we'll write node_modules there, since we don't want to commit that folder.
+
+[6] Configure Variables for Heroku
+
+    We have to use the proccess.env.PORT environment variable:
+
+        const port = process.env.PORT || 3000;
+
+    So by this way the port will be configured for locally and Heroku environmnets.
+
+[7] Add scripts in the package.json
+
+        "start": "node server/server.js"
+
+    Also we have to specify the "engines" property:
+
+    "engines": {
+        "node": "9.3.0"
+    }
+
+[8] Lets make our first commit
+
+
+
+
