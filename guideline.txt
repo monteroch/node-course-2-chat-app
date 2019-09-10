@@ -220,7 +220,32 @@
 
         "test": "mocha server/**/*.test.js",
 
-            
+[19] Writing test cases
+
+    First we need to load in Expect using var expect = require('expect'). This will let us make our assertions about the return value from our generateMessage function.
+
+    the next thing we're going to do is add a describe block. Here, we're going to add a describe block for the function generateMessage, and inside the callback function we'll have all of the test cases for that function as follows:
+
+        describe('GenerateMessage', () => {
+            it('should generate correct mesaage object', () => {
+                var from = 'Jen';
+                var text = 'Some message';
+                var message = generateMessage(from, text);
+                expect(message.createdAt).toBeA('number');
+                expect(message).toInclude({from, text});
+            });
+        });
+
+    After testing the function we can implement it in the real app, so everywhere where we pass message objects litheraly we can use our function.
+
+[20] event acknowledgments
+
+    **Page 315
+
+[21] The message Form and jQuery
+
+    
+
 
 
 
